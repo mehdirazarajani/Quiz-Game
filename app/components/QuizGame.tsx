@@ -1,6 +1,8 @@
+"use client";
+
 import React, { useState, useEffect, useCallback } from "react";
-import { APP_CONFIG } from "../config/constants";
-import { Question } from "../types";
+import { APP_CONFIG } from "../shared/constants";
+import { Question } from "../shared/types";
 import QuestionListScreen from "./QuestionListScreen";
 import QuizScreen from "./QuizScreen";
 
@@ -48,7 +50,7 @@ const QuizGame: React.FC = () => {
       } catch (error) {
         console.error("Failed to load questions from CSV:", error);
         setErrorMessage(
-          error instanceof Error ? error.message : "An unknown error occurred",
+          error instanceof Error ? error.message : "An unknown error occurred"
         );
         setLoadingState("error");
       }
@@ -60,13 +62,13 @@ const QuizGame: React.FC = () => {
   const handleSelectQuestion = (index: number) => {
     setCurrentIndex(index);
     setQuestions((prevQuestions) =>
-      prevQuestions.map((q, i) => (i === index ? { ...q, isOpened: true } : q)),
+      prevQuestions.map((q, i) => (i === index ? { ...q, isOpened: true } : q))
     );
   };
 
   const handleUpdateQuestion = (updatedQuestion: Question) => {
     setQuestions((prevQuestions) =>
-      prevQuestions.map((q, i) => (i === currentIndex ? updatedQuestion : q)),
+      prevQuestions.map((q, i) => (i === currentIndex ? updatedQuestion : q))
     );
   };
 
@@ -77,7 +79,8 @@ const QuizGame: React.FC = () => {
   if (loadingState === "loading") {
     return (
       <div className="flex justify-center items-center h-screen">
-        Loading questions from CSV...
+        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
+        <span className="ml-4 text-xl">Loading questions from CSV...</span>
       </div>
     );
   }
@@ -94,10 +97,9 @@ const QuizGame: React.FC = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex flex-col">
-      {/* Header - Only placed here */}
-      <header className="bg-blue-600 text-white p-4 mb-8">
-        <h1 className="text-3xl font-semibold text-center">
+    <div className="min-h-screen bg-gray-900 flex flex-col">
+      <header className="bg-gradient-to-r from-blue-600 to-blue-500 text-white p-6 mb-8 shadow-lg rounded-b-lg">
+        <h1 className="text-4xl font-semibold text-center text-white">
           {APP_CONFIG.eventTitle}
         </h1>
       </header>
@@ -119,8 +121,8 @@ const QuizGame: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white p-4">
-        <p className="text-center">{APP_CONFIG.instituteName}</p>
+      <footer className="bg-gray-800 text-white p-4 opacity-90">
+        <p className="text-center text-sm">{APP_CONFIG.instituteName}</p>
       </footer>
     </div>
   );

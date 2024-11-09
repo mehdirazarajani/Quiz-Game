@@ -15,6 +15,6 @@ export const APP_CONFIG = {
     secondWrongPenalty: -20,
   },
   layout: {
-    questionsPerRow: 4,
+    questionsPerRow: 3,
   },
 };

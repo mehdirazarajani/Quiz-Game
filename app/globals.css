@@ -1,0 +1,56 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-gray-50 font-sans text-gray-900; /* Base font color */
+    font-family: "Lato", sans-serif; /* Applying Lato font globally */
+  }
+}
+
+@layer components {
+  /* Clue Box Styles */
+  .clue-box {
+    @apply relative overflow-hidden rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg;
+  }
+
+  .clue-box-revealed {
+    @apply bg-white transform scale-100;
+  }
+
+  .clue-box-unrevealed {
+    @apply bg-blue-50 hover:scale-105 cursor-pointer;
+  }
+
+  /* Timer Styles */
+  .timer {
+    @apply fixed top-6 right-6 flex items-center gap-2 p-4 rounded-lg shadow-lg z-50 transition-colors duration-300;
+  }
+
+  .timer-warning {
+    @apply bg-red-500 text-white animate-pulse; /* Ensuring text is readable on warning */
+  }
+
+  .timer-normal {
+    @apply bg-emerald-500 text-white; /* Ensuring text is readable on normal state */
+  }
+
+  /* Button Styles */
+  .btn {
+    @apply px-6 py-3 rounded-lg font-medium transition-all duration-200 ease-in-out;
+  }
+
+  .btn-primary {
+    @apply bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-400;
+  }
+
+  .btn-secondary {
+    @apply bg-gray-300 text-gray-800 hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-400;
+  }
+
+  /* Additional Utility Class for Consistency */
+  .text-title {
+    @apply text-2xl font-semibold text-gray-800;
+  }
+}

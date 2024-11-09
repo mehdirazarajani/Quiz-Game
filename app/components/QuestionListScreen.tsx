@@ -1,6 +1,6 @@
 import React from "react";
-import { Question } from "../types";
-import { COLORS, FONT_FAMILY, FONT_SIZES, SPACING } from "../styles/theme";
+import { Question } from "../shared/types";
+import { COLORS, FONT_FAMILY, FONT_SIZES, SPACING } from "../shared/theme";
 
 interface QuestionListScreenProps {
   questions: Question[];
@@ -16,7 +16,7 @@ const QuestionBox: React.FC<{
     onClick={onClick}
     disabled={isOpened}
     className={`
-      w-full aspect-square flex items-center justify-center
+      aspect-square flex items-center justify-center
       rounded-lg transition-all duration-300 ease-in-out
       ${
         isOpened
@@ -29,31 +29,30 @@ const QuestionBox: React.FC<{
       color: isOpened ? COLORS.text.secondary : COLORS.text.primary,
       fontFamily: FONT_FAMILY,
       fontSize: FONT_SIZES.large,
-      fontWeight: "500",
+      fontWeight: "800",
       padding: SPACING.medium,
     }}
   >
     {isOpened ? "" : `Question ${number}`}
   </button>
 );
-
 const QuestionListScreen: React.FC<QuestionListScreenProps> = ({
   questions,
   onSelectQuestion,
 }) => {
   return (
-    <div className="container mx-auto px-4" style={{ fontFamily: FONT_FAMILY }}>
+    <div className="container mx-auto px-8" style={{ fontFamily: FONT_FAMILY }}>
       <h1
-        className="text-center mb-8"
+        className="text-center mb-12"
         style={{
           color: COLORS.text.primary,
           fontSize: FONT_SIZES.xxlarge,
-          fontWeight: "600",
+          fontWeight: "800",
         }}
       >
         Quiz Questions
       </h1>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+      <div className="flex gap-4 flex-wrap justify-center">
         {questions.map((question, index) => (
           <QuestionBox
             key={index}
@@ -66,5 +65,7 @@ const QuestionListScreen: React.FC<QuestionListScreenProps> = ({
     </div>
   );
 };
+
+
 
 export default QuestionListScreen;

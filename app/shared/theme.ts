@@ -1,17 +1,17 @@
 export const COLORS = {
-  primary: "#3498db",
-  secondary: "#2c3e50",
-  background: "#ecf0f1",
+  primary: "#F1F1F1",
+  secondary: "#2ECC71",
+  background: "#2ECC71",
   text: {
-    primary: "#2c3e50",
-    secondary: "#7f8c8d",
+    primary: "#2C3E50",
+    secondary: "#2ECC71",
   },
   success: "#2ecc71",
   error: "#e74c3c",
   warning: "#f39c12",
 };
 
-export const FONT_FAMILY = "'Poppins', sans-serif";
+export const FONT_FAMILY = "Lato', sans-serif";
 
 export const FONT_SIZES = {
   small: "0.875rem",

@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useCallback } from "react";
-import { Question } from "../types";
-import { APP_CONFIG } from "../config/constants";
+import { Question } from "../shared/types";
+import { APP_CONFIG } from "../shared/constants";
 import { Clock, Star, Type as TypeIcon, Award, X } from "lucide-react";
-import { playSound, playLoopedSound } from "../utils/soundUtils";
+import { playSound, playLoopedSound } from "../shared/soundUtils";
 
 interface QuizScreenProps {
   question: Question;
@@ -23,7 +23,7 @@ const ClueBox: React.FC<{
   >
     <div className="absolute inset-0 bg-gradient-to-br from-transparent to-blue-50 opacity-50" />
     <div className="p-6 relative z-10">
-      <h3 className="text-xl mb-4 font-semibold text-blue-800">{title}</h3>
+      <h3 className="text-2xl mb-4 font-semibold text-blue-800">{title}</h3>
       {isRevealed ? (
         <p className="text-gray-700 leading-relaxed">{content}</p>
       ) : (
