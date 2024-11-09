@@ -4,37 +4,44 @@
 
 @layer base {
   body {
-    @apply bg-gray-50 font-sans text-gray-900; /* Base font color */
-    font-family: "Lato", sans-serif; /* Applying Lato font globally */
+    @apply bg-gray-50 font-sans text-gray-900;
+    /* Base font color */
+    font-family: "Lato", sans-serif;
+    /* Applying Lato font globally */
   }
 }
 
 @layer components {
+
   /* Clue Box Styles */
   .clue-box {
     @apply relative overflow-hidden rounded-2xl transition-all duration-300 shadow-sm hover:shadow-lg;
   }
 
   .clue-box-revealed {
-    @apply bg-white transform scale-100;
+    @apply bg-cyan-50 transform scale-100;
   }
 
   .clue-box-unrevealed {
-    @apply bg-blue-50 hover:scale-105 cursor-pointer;
+    @apply bg-cyan-100 hover:scale-105 cursor-pointer;
   }
 
-  /* Timer Styles */
+  /* Timer Styles for Info Bar */
   .timer {
-    @apply fixed top-6 right-6 flex items-center gap-2 p-4 rounded-lg shadow-lg z-50 transition-colors duration-300;
+    @apply flex items-center gap-2 p-4 rounded-lg shadow-lg transition-colors duration-300;
+    /* Removed fixed positioning */
   }
 
+  /* Warning Style */
   .timer-warning {
-    @apply bg-red-500 text-white animate-pulse; /* Ensuring text is readable on warning */
+    @apply bg-red-500 text-white animate-pulse;
   }
 
+  /* Normal Style */
   .timer-normal {
-    @apply bg-emerald-500 text-white; /* Ensuring text is readable on normal state */
+    @apply bg-emerald-500 text-white;
   }
+
 
   /* Button Styles */
   .btn {

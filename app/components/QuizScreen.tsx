@@ -18,17 +18,22 @@ const ClueBox: React.FC<{
 }> = ({ title, content, isRevealed, onClick }) => (
   <div
     onClick={onClick}
-    className={`clue-box ${isRevealed ? "clue-box-revealed" : "clue-box-unrevealed"}`}
+    className={`clue-box ${isRevealed ? "clue-box-revealed" : "clue-box-unrevealed"
+      }`}
     style={{ minHeight: "200px" }}
   >
     <div className="absolute inset-0 bg-gradient-to-br from-transparent to-blue-50 opacity-50" />
     <div className="p-6 relative z-10">
-      <h3 className="text-2xl mb-4 font-semibold text-blue-800">{title}</h3>
+      <h3 className="text-3xl mb-4 font-bold text-cyan-600 underline">
+        {title}
+      </h3>
       {isRevealed ? (
-        <p className="text-gray-700 leading-relaxed">{content}</p>
+        <p className="text-cyan-600 text-3xl font-semibold leading-relaxed">
+          {content}
+        </p>
       ) : (
         <div className="flex items-center justify-center h-24">
-          <span className="text-blue-400">Click to reveal</span>
+          <span className="text-4xl font-medium">Click to reveal</span>
         </div>
       )}
     </div>
@@ -62,7 +67,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
 }) => {
   const [revealedClues, setRevealedClues] = useState<number[]>([]);
   const [gameStatus, setGameStatus] = useState<"playing" | "answered">(
-    "playing",
+    "playing"
   );
   const [timeLeft, setTimeLeft] = useState(APP_CONFIG.timerConfig.totalSeconds);
   const [wrongAttempts, setWrongAttempts] = useState(0);
@@ -85,7 +90,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
         playSound("beep");
       }
     },
-    [revealedClues, gameStatus],
+    [revealedClues, gameStatus]
   );
 
   const handleAnswer = useCallback(
@@ -125,7 +130,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
       gameStatus,
       onUpdateQuestion,
       calculatePossibleScore,
-    ],
+    ]
   );
 
   useEffect(() => {
@@ -181,84 +186,92 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
   }, [timeLeft]);
 
   return (
-    <div className="container mx-auto px-4 py-6">
-      {/* Timer */}
-      <Timer
-        seconds={timeLeft}
-        isWarning={timeLeft <= APP_CONFIG.timerConfig.dangerZoneSeconds}
-      />
+    <div className="px-4 py-6 overflow-x-scroll">
+      <div
+        className="min-w-120">
 
-      {/* Info Bar */}
-      <div className="mb-8">
-        {/* Type and Score */}
-        <div className="flex gap-4">
-          <div className="flex items-center gap-2 bg-blue-50 p-4 rounded-lg">
-            <TypeIcon className="w-5 h-5 text-blue-600" />
-            <span className="font-medium">{question.Type}</span>
-          </div>
-          <div className="flex items-center gap-2 bg-green-50 p-4 rounded-lg">
-            <Award className="w-5 h-5 text-green-600" />
-            <span className="font-medium">
-              Possible Score: {calculatePossibleScore()}
-            </span>
+        {/* Info Bar */}
+        <div className="mb-8">
+          <div className="flex justify-between items-center gap-4">
+            {/* Type Button (Left-aligned) */}
+            <div className="flex items-center gap-2 bg-cyan-50 p-4 rounded-lg w-60">
+              <TypeIcon className="w-7 h-7 text-blue-600" />
+              <span className="font-medium">{question.Type}</span>
+            </div>
+
+            {/* Timer */}
+            <Timer
+              seconds={timeLeft}
+              isWarning={timeLeft <= APP_CONFIG.timerConfig.dangerZoneSeconds}
+            />
+
+            {/* Score Button (Right-aligned) */}
+            <div className="flex items-center justify-end gap-2 bg-cyan-50 p-4 rounded-lg w-60">
+              <span className="text-lg">
+                Possible Score: <b>{calculatePossibleScore()}</b>
+              </span>
+              <Award className="w-5 h-5 text-green-600" />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* Main Grid */}
-      <div className="grid grid-cols-3 gap-6">
-        {/* First Row */}
-        <ClueBox
-          title="Clue 1"
-          content={question.Hint1}
-          isRevealed={revealedClues.includes(1)}
-          onClick={() => handleRevealClue(1)}
-        />
+        {/* Main Grid */}
+        <div className="grid grid-cols-3 gap-6">
+          {/* First Row */}
+          <ClueBox
+            title="Clue 1"
+            content={question.Hint1}
+            isRevealed={revealedClues.includes(1)}
+            onClick={() => handleRevealClue(1)}
+          />
 
-        {/* Answer Box */}
-        <div className="row-span-2 flex items-center justify-center">
-          {question.showAnswer ? (
-            <div className="bg-white p-6 rounded-2xl shadow-lg text-center w-full h-full flex flex-col items-center justify-center">
-              <h2 className="text-2xl font-semibold mb-4">{question.Answer}</h2>
-              {question.isCorrect ? (
-                <div className="text-green-500">
-                  <Star className="w-12 h-12 mb-2 mx-auto fill-current" />
-                  <p className="font-medium">Score: +{currentScore}</p>
-                </div>
-              ) : (
-                <div className="text-red-500">
-                  <X className="w-12 h-12 mb-2 mx-auto" />
-                  <p className="font-medium">Penalty: {currentScore}</p>
-                </div>
-              )}
-            </div>
-          ) : (
-            <div className="bg-blue-50 rounded-2xl p-6 w-full h-full flex items-center justify-center">
-              <span className="text-blue-400">Answer will appear here</span>
-            </div>
-          )}
+          {/* Answer Box */}
+          <div className="row-span-2 flex items-center justify-center">
+            {question.showAnswer ? (
+              <div className="bg-white  p-6 rounded-2xl shadow-lg text-center w-full h-full flex flex-col items-center justify-center">
+                <h2 className="text-4xl font-semibold mb-4">{question.Answer}</h2>
+                {question.isCorrect ? (
+                  <div className="text-green-500">
+                    <Star className="w-12 h-12 mb-2 mx-auto fill-current" />
+                    <p className="font-medium">Score: +{currentScore}</p>
+                  </div>
+                ) : (
+                  <div className="text-red-500">
+                    <X className="w-12 h-12 mb-2 mx-auto" />
+                    <p className="font-medium">Penalty: {currentScore}</p>
+                  </div>
+                )}
+              </div>
+            ) : (
+              <div className="bg-blue-50 rounded-2xl p-6 w-full h-full flex items-center justify-center">
+                <span className="text-cyan-600 text-3xl font-bold">
+                  Answer will appear here
+                </span>
+              </div>
+            )}
+          </div>
+
+          <ClueBox
+            title="Clue 3"
+            content={question.Hint3}
+            isRevealed={revealedClues.includes(3)}
+            onClick={() => handleRevealClue(3)}
+          />
+
+          {/* Second Row */}
+          <ClueBox
+            title="Clue 2"
+            content={question.Hint2}
+            isRevealed={revealedClues.includes(2)}
+            onClick={() => handleRevealClue(2)}
+          />
+          <ClueBox
+            title="Clue 4"
+            content={question.Hint4}
+            isRevealed={revealedClues.includes(4)}
+            onClick={() => handleRevealClue(4)}
+          />
         </div>
-
-        <ClueBox
-          title="Clue 3"
-          content={question.Hint3}
-          isRevealed={revealedClues.includes(3)}
-          onClick={() => handleRevealClue(3)}
-        />
-
-        {/* Second Row */}
-        <ClueBox
-          title="Clue 2"
-          content={question.Hint2}
-          isRevealed={revealedClues.includes(2)}
-          onClick={() => handleRevealClue(2)}
-        />
-        <ClueBox
-          title="Clue 4"
-          content={question.Hint4}
-          isRevealed={revealedClues.includes(4)}
-          onClick={() => handleRevealClue(4)}
-        />
       </div>
     </div>
   );

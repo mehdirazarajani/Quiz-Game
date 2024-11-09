@@ -16,12 +16,11 @@ const QuestionBox: React.FC<{
     onClick={onClick}
     disabled={isOpened}
     className={`
-      aspect-square flex items-center justify-center
+      aspect-square flex items-center justify-center w-44
       rounded-lg transition-all duration-300 ease-in-out
-      ${
-        isOpened
-          ? "bg-opacity-50 cursor-not-allowed"
-          : "hover:shadow-lg hover:scale-105 cursor-pointer"
+      ${isOpened
+        ? "bg-opacity-50 cursor-not-allowed"
+        : "hover:shadow-lg hover:scale-105 cursor-pointer"
       }
     `}
     style={{
@@ -33,25 +32,31 @@ const QuestionBox: React.FC<{
       padding: SPACING.medium,
     }}
   >
-    {isOpened ? "" : `Question ${number}`}
+    {/* Display the red cross if the question is opened */}
+    {isOpened ? (
+      <span className="text-red-500 text-3xl">❌</span>
+    ) : (
+      `Question ${number}`
+    )}
   </button>
 );
+
 const QuestionListScreen: React.FC<QuestionListScreenProps> = ({
   questions,
   onSelectQuestion,
 }) => {
   return (
-    <div className="container mx-auto px-8" style={{ fontFamily: FONT_FAMILY }}>
-      <h1
+    <div className="container mx-auto px-8 overflow-y-scroll  " style={{ fontFamily: FONT_FAMILY }}>
+      {/* <h1
         className="text-center mb-12"
         style={{
           color: COLORS.text.primary,
           fontSize: FONT_SIZES.xxlarge,
-          fontWeight: "800",
+          fontWeight: "1000",
         }}
       >
         Quiz Questions
-      </h1>
+      </h1> */}
       <div className="flex gap-4 flex-wrap justify-center">
         {questions.map((question, index) => (
           <QuestionBox
@@ -65,7 +70,5 @@ const QuestionListScreen: React.FC<QuestionListScreenProps> = ({
     </div>
   );
 };
-
-
 
 export default QuestionListScreen;

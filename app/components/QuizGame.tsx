@@ -98,14 +98,14 @@ const QuizGame: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col">
-      <header className="bg-gradient-to-r from-blue-600 to-blue-500 text-white p-6 mb-8 shadow-lg rounded-b-lg">
-        <h1 className="text-4xl font-semibold text-center text-white">
+      <header className="bg-gradient-to-r from-teal-300 to-cyan-500 text-white p-6 shadow-lg rounded-b-lg">
+        <h1 className="text-lg md:text-4xl font-bold text-center text-emerald-50">
           {APP_CONFIG.eventTitle}
         </h1>
       </header>
 
       {/* Main Content */}
-      <main className="flex-grow">
+      <main className="flex flex-col h-[84vh] p-8 overflow-hidden items-center justify-center">
         {currentIndex === null ? (
           <QuestionListScreen
             questions={questions}
@@ -122,7 +122,7 @@ const QuizGame: React.FC = () => {
 
       {/* Footer */}
       <footer className="bg-gray-800 text-white p-4 opacity-90">
-        <p className="text-center text-sm">{APP_CONFIG.instituteName}</p>
+        <p className="text-center text-lg">{APP_CONFIG.instituteName}</p>
       </footer>
     </div>
   );
