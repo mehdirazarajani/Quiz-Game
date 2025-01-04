@@ -18,13 +18,20 @@ const ClueBox: React.FC<{
 }> = ({ title, content, isRevealed, onClick }) => (
   <div
     onClick={onClick}
-    className={`clue-box ${isRevealed ? "clue-box-revealed" : "clue-box-unrevealed"
-      }`}
+    className={`clue-box ${
+      isRevealed ? "clue-box-revealed" : "clue-box-unrevealed"
+    }`}
     style={{ minHeight: "200px" }}
   >
     <div className="absolute inset-0 bg-gradient-to-br from-transparent to-blue-50 opacity-50" />
     <div className="p-6 relative z-10">
-      <h3 className="text-3xl mb-4 font-bold text-cyan-600 underline">
+      <h3
+        className={`text-3xl mb-4 ${
+          isRevealed
+            ? "text-gray-600 font-normal"
+            : "text-cyan-600 font-semibold"
+        }`}
+      >
         {title}
       </h3>
       {isRevealed ? (
@@ -67,7 +74,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
 }) => {
   const [revealedClues, setRevealedClues] = useState<number[]>([]);
   const [gameStatus, setGameStatus] = useState<"playing" | "answered">(
-    "playing"
+    "playing",
   );
   const [timeLeft, setTimeLeft] = useState(APP_CONFIG.timerConfig.totalSeconds);
   const [wrongAttempts, setWrongAttempts] = useState(0);
@@ -90,7 +97,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
         playSound("beep");
       }
     },
-    [revealedClues, gameStatus]
+    [revealedClues, gameStatus],
   );
 
   const handleAnswer = useCallback(
@@ -106,6 +113,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
         setCurrentScore(score);
         setGameStatus("answered");
         playSound("correct");
+        setRevealedClues([1, 2, 3, 4]);
       } else {
         setWrongAttempts((prev) => prev + 1);
         if (wrongAttempts === 0 && revealedClues.length < 4) {
@@ -130,12 +138,12 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
       gameStatus,
       onUpdateQuestion,
       calculatePossibleScore,
-    ]
+    ],
   );
 
   useEffect(() => {
     const handleKeyPress = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === "Escape" || event.key === "0") {
         onExit();
       } else if (gameStatus === "playing") {
         if (["1", "2", "3", "4"].includes(event.key)) {
@@ -187,9 +195,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
 
   return (
     <div className="px-4 py-6 overflow-x-scroll">
-      <div
-        className="min-w-120">
-
+      <div className="min-w-200">
         {/* Info Bar */}
         <div className="mb-8">
           <div className="flex justify-between items-center gap-4">
@@ -198,17 +204,23 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
               <TypeIcon className="w-7 h-7 text-blue-600" />
               <span className="font-medium">{question.Type}</span>
             </div>
-
             {/* Timer */}
             <Timer
               seconds={timeLeft}
               isWarning={timeLeft <= APP_CONFIG.timerConfig.dangerZoneSeconds}
             />
-
             {/* Score Button (Right-aligned) */}
-            <div className="flex items-center justify-end gap-2 bg-cyan-50 p-4 rounded-lg w-60">
+            <div className="flex items-center justify-end gap-2 bg-cyan-50 p-4 rounded-lg w-70">
               <span className="text-lg">
-                Possible Score: <b>{calculatePossibleScore()}</b>
+                Possible Score:{" "}
+                <b>
+                  {calculatePossibleScore()}{" "}
+                  {wrongAttempts > 0 && (
+                    <span className="text-red-500">
+                      ({wrongAttempts * -10})
+                    </span>
+                  )}
+                </b>
               </span>
               <Award className="w-5 h-5 text-green-600" />
             </div>
@@ -229,22 +241,24 @@ const QuizScreen: React.FC<QuizScreenProps> = ({
           <div className="row-span-2 flex items-center justify-center">
             {question.showAnswer ? (
               <div className="bg-white  p-6 rounded-2xl shadow-lg text-center w-full h-full flex flex-col items-center justify-center">
-                <h2 className="text-4xl font-semibold mb-4">{question.Answer}</h2>
+                <h2 className="text-4xl font-medium mb-4">{question.Answer}</h2>
                 {question.isCorrect ? (
                   <div className="text-green-500">
                     <Star className="w-12 h-12 mb-2 mx-auto fill-current" />
-                    <p className="font-medium">Score: +{currentScore}</p>
+                    <p className="font-medium">
+                      Score: +{currentScore - wrongAttempts * 10}
+                    </p>
                   </div>
                 ) : (
                   <div className="text-red-500">
                     <X className="w-12 h-12 mb-2 mx-auto" />
-                    <p className="font-medium">Penalty: {currentScore}</p>
+                    <p className="font-medium">Penalty: {wrongAttempts * 10}</p>
                   </div>
                 )}
               </div>
             ) : (
-              <div className="bg-blue-50 rounded-2xl p-6 w-full h-full flex items-center justify-center">
-                <span className="text-cyan-600 text-3xl font-bold">
+              <div className="bg-slate-100 rounded-2xl p-6 w-full h-full flex items-center justify-center border border-gray-100">
+                <span className="text-gray-700 text-3xl font-medium">
                   Answer will appear here
                 </span>
               </div>

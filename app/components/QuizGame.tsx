@@ -50,7 +50,7 @@ const QuizGame: React.FC = () => {
       } catch (error) {
         console.error("Failed to load questions from CSV:", error);
         setErrorMessage(
-          error instanceof Error ? error.message : "An unknown error occurred"
+          error instanceof Error ? error.message : "An unknown error occurred",
         );
         setLoadingState("error");
       }
@@ -62,13 +62,13 @@ const QuizGame: React.FC = () => {
   const handleSelectQuestion = (index: number) => {
     setCurrentIndex(index);
     setQuestions((prevQuestions) =>
-      prevQuestions.map((q, i) => (i === index ? { ...q, isOpened: true } : q))
+      prevQuestions.map((q, i) => (i === index ? { ...q, isOpened: true } : q)),
     );
   };
 
   const handleUpdateQuestion = (updatedQuestion: Question) => {
     setQuestions((prevQuestions) =>
-      prevQuestions.map((q, i) => (i === currentIndex ? updatedQuestion : q))
+      prevQuestions.map((q, i) => (i === currentIndex ? updatedQuestion : q)),
     );
   };
 
@@ -98,7 +98,7 @@ const QuizGame: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 flex flex-col">
-      <header className="bg-gradient-to-r from-teal-300 to-cyan-500 text-white p-6 shadow-lg rounded-b-lg">
+      <header className="bg-gradient-to-b from-slate-500 via-slate-600 to-slate-700 text-white p-6 shadow-lg rounded-b-lg">
         <h1 className="text-lg md:text-4xl font-bold text-center text-emerald-50">
           {APP_CONFIG.eventTitle}
         </h1>
@@ -121,7 +121,7 @@ const QuizGame: React.FC = () => {
       </main>
 
       {/* Footer */}
-      <footer className="bg-gray-800 text-white p-4 opacity-90">
+      <footer className="bg-gradient-to-b from-slate-600 via-slate-700 to-slate-800 text-white p-4 shadow-lg rounded-t-lg">
         <p className="text-center text-lg">{APP_CONFIG.instituteName}</p>
       </footer>
     </div>

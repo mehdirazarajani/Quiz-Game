@@ -4,7 +4,7 @@ export const APP_CONFIG = {
   timerConfig: {
     totalSeconds: 90,
     warningBeepInterval: 15,
-    dangerZoneSeconds: 75,
+    dangerZoneSeconds: 30,
   },
   scoring: {
     firstClue: 40,
@@ -15,6 +15,6 @@ export const APP_CONFIG = {
     secondWrongPenalty: -20,
   },
   layout: {
-    questionsPerRow: 3,
+    questionsPerRow: 4,
   },
 };
