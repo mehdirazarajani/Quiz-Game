@@ -100,6 +100,7 @@ export const APP_CONFIG = {
     secondClue: 30,         // Points for answering after 2nd clue
     thirdClue: 20,          // Points for answering after 3rd clue
     fourthClue: 10,         // Points for answering after 4th clue
+    defaultMark: 0,         // Points for not answering the question
     wrongPenalty: -10,      // Penalty for wrong answers
   }
 };

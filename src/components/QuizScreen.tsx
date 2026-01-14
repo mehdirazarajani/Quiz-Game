@@ -137,7 +137,7 @@ const QuizScreen: React.FC<QuizScreenProps> = ({ question, onUpdateQuestion, onE
       APP_CONFIG.scoring.thirdClue,
       APP_CONFIG.scoring.fourthClue,
     ];
-    return baseScores[revealedClues.length] || 0;
+    return baseScores[revealedClues.length] || APP_CONFIG.scoring.defaultMark;
   }, [revealedClues]);
 
   const handleRevealClue = useCallback(

@@ -11,6 +11,7 @@ export const APP_CONFIG = {
     secondClue: 30,
     thirdClue: 20,
     fourthClue: 10,
+    defaultMark: 0,
     wrongPenalty: -10,
     secondWrongPenalty: -20,
   },

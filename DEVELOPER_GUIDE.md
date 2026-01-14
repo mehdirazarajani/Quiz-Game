@@ -89,6 +89,7 @@ APP_CONFIG = {
     secondClue: number,        // Points for 2nd clue answer
     thirdClue: number,         // Points for 3rd clue answer
     fourthClue: number,        // Points for 4th clue answer
+    defaultMark: number,       // Points for not answering
     wrongPenalty: number,      // Penalty points
   }
 }
@@ -267,6 +268,7 @@ transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
      secondClue: 35,       // Increased from 30
      thirdClue: 25,        // Increased from 20
      fourthClue: 15,       // Increased from 10
+     defaultMark: 5,       // Increased from 0
      wrongPenalty: -15,    // Increased penalty
    }
    ```
